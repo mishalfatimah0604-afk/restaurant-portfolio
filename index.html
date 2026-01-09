@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delizia | Restaurant Portfolio</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(120deg, #8e2de2, #4a00e0);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+            header h1 {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+
+            header p {
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+            nav a {
+                text-decoration: none;
+                margin: 0 15px;
+                font-weight: 500;
+                color: #4a00e0;
+            }
+
+        .cart-btn {
+            background: #4a00e0;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 60px 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.3rem;
+            color: #4a00e0;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .item {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+            .item:hover {
+                transform: translateY(-8px);
+            }
+
+            .item img {
+                width: 100%;
+                border-radius: 12px;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .item h3 {
+                margin: 15px 0 5px;
+            }
+
+            .item p {
+                font-size: 0.9rem;
+                opacity: 0.8;
+            }
+
+        .price {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #4a00e0;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+            button:hover {
+                opacity: 0.9;
+            }
+
+        /* Cart */
+        .cart {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            padding: 20px;
+            transition: right 0.4s ease;
+            z-index: 20;
+        }
+
+            .cart.open {
+                right: 0;
+            }
+
+            .cart h3 {
+                text-align: center;
+            }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .total {
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background: #4a00e0;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Delizia</h1>
+        <p>Modern Restaurant Experience</p>
+    </header>
+
+    <nav>
+        <div>
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="cart-btn" onclick="toggleCart()">🛒 Cart</div>
+    </nav>
+
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu">
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Grilled Chicken" />
+                <h3>Grilled Chicken</h3>
+                <p>Juicy grilled chicken with herbs</p>
+                <div class="price">$12</div>
+                <button onclick="addToCart('Grilled Chicken', 12)">Add to Cart</button>
+            </div>
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" alt="Italian Pasta" />
+                <h3>Italian Pasta</h3>
+                <p>Classic creamy pasta</p>
+                <div class="price">$10</div>
+                <button onclick="addToCart('Italian Pasta', 10)">Add to Cart</button>
+            </div>
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Pizza Deluxe" />
+                <h3>Pizza Deluxe</h3>
+                <p>Cheesy loaded pizza</p>
+                <div class="price">$15</div>
+                <button onclick="addToCart('Pizza Deluxe', 15)">Add to Cart</button>
+            </div>
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="Classic Burger" />
+                <h3>Classic Burger</h3>
+                <p>Beef burger with fresh lettuce & cheese</p>
+                <div class="price">$9</div>
+                <button onclick="addToCart('Classic Burger', 9)">Add to Cart</button>
+            </div>
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" alt="French Fries" />
+                <h3>French Fries</h3>
+                <p>Crispy golden fries</p>
+                <div class="price">$5</div>
+                <button onclick="addToCart('French Fries', 5)">Add to Cart</button>
+            </div>
+
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b" alt="Chocolate Dessert" />
+                <h3>Chocolate Dessert</h3>
+                <p>Rich chocolate brownie with ice cream</p>
+                <div class="price">$7</div>
+                <button onclick="addToCart('Chocolate Dessert', 7)">Add to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p style="text-align:center; max-width:700px; margin:auto;">
+            Delizia is a concept restaurant website created as a portfolio project.
+            It demonstrates frontend skills including responsive design, animations,
+            cart functionality, and checkout logic.
+        </p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p style="text-align:center;">Email: delizia@restaurant.com</p>
+    </section>
+
+    <div class="cart" id="cart">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        <div class="total" id="total">Total: $0</div>
+        <button style="margin-top:20px;" onclick="checkout()">Checkout</button>
+    </div>
+
+    <footer>
+        <p>© 2026 Delizia Restaurant | Portfolio Project</p>
+    </footer>
+
+    <script>
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById('cart').classList.toggle('open');
+  }
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = '';
+    let total = 0;
+
+    cart.forEach(item => {
+      total += item.price;
+      cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>$${item.price}</span></div>`;
+    });
+
+    document.getElementById('total').innerText = `Total: $${total}`;
+  }
+
+  function checkout() {
+    alert('Checkout successful! (Frontend only)');
+    cart = [];
+    updateCart();
+    toggleCart();
+  }
+    </script>
+
+</body>
+</html>
